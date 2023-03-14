@@ -15,4 +15,5 @@ public class Vendedor implements Observer {
     public void update(Observable o, Object arg){
         
     }
+    //DE MOMENTO NO SE HACE
 }

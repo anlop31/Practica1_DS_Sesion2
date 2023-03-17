@@ -61,6 +61,7 @@ public class Panaderia extends Observable implements Runnable{
     
     @Override
     public void run(){
+        this.setChanged();
         try{
             int instante = rand.nextInt(10);
             int cantidad = rand.nextInt(4);

@@ -3,6 +3,9 @@ import java.util.Observable;
 
 public class Panaderia extends Observable{
 
+    //Se encarga de instanciar los objetos y notificar al observador las cantidades
+
+
     //Tiene originalmente el número de productos de cada tipo
     
     //array de producto

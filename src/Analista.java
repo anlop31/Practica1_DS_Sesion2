@@ -3,19 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import java.util.Observer;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Observable;
-
+ import java.util.Observer;
+ import java.util.logging.Logger;
+ import java.util.ArrayList;
+ import java.util.Observable;
 /**
  *
  * @author ana
  */
-public class Supervisor implements Observer {
+public class Analista implements Observer {
 
-    //Mostrará la disponibilidad de productos (y ventas ??)
-
+    //Mostrará una gráfica con las ventas de los últimos 7 días
     public String mensajeSimples;
     public String mensajeCompuestos;
 
@@ -40,6 +38,4 @@ public class Supervisor implements Observer {
         mensajeCompuestos = "El número de productos compuestos en stock es " + nCompuestos + " y el número de productos compuestos que ya se han vendido es " + compuestosVendidos;
 
     }
-
-
 }

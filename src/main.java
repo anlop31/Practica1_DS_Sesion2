@@ -15,32 +15,40 @@ public class main {
     public static void main(String [] args){
 
         Panaderia panaderia = new Panaderia();
-
-        //Número de productos para el cliente
-        public ArrayList<Integer> datos = new ArrayList<>();
-        datos.add(panaderia.getNSimples());
-        datos.add(panaderia.getNCompuestos());
-        datos.add(panaderia.getSimplesVendidos());
-        datos.add(panaderia.getCompuestosVendidos());
-
-
-
-        Random rand = new Random();
-        int instante = rand.nextInt(10);
-        int cantidad = rand.nextInt(4);
-        int tipo = rand.nextInt(2);
-
-        if (tipo == 0){
-            panaderia.venderSimple(cantidad);
-        } else {
-            panaderia.venderCompuesto(cantidad);
-        }
-
-
-
         Supervisor supervisor = new Supervisor();
-        while(true){
-            supervisor.update(panaderia, datos);
+        Analista analista = new Analista();
+        
+        Thread threadSupervisor = new Thread(panaderia);
+        Thread threadAnalista = new Thread(panaderia);
+        
+        
+        //Número de productos para el cliente (MEJOR UN GET EN PANADERIA)
+        ArrayList<Integer> datos = new ArrayList<>();
+
+
+        // Añadimos los observadores a la panaderia
+        // UNO DE ESTOS TIENE QUE SER SUSCRITO Y OTRO NO SUSCRITO
+        // Supervisor no suscrito al tener el while true?
+        /* Supervisor */
+        panaderia.addObserver(supervisor);
+        /* Analista */
+        panaderia.addObserver(analista);
+        
+        
+        // Iniciamos los threads
+        threadSupervisor.start();
+        threadAnalista.start();
+        
+        while(threadSupervisor.isAlive()){
+            // actualizamos los datos
+            datos.add(panaderia.getNSimples());
+            datos.add(panaderia.getNCompuestos());
+            datos.add(panaderia.getSimplesVendidos());
+            datos.add(panaderia.getCompuestosVendidos());
+            
+            supervisor.update(panaderia, datos); // mandamos los datos
+            
+            datos.clear(); // Lo limpiamos para luego meter nuevos datos actualizados
         }
     }
 }

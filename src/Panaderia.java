@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Random;
 
-public class Panaderia extends Observable{
+public class Panaderia extends Observable implements Runnable{
 
     //Se encarga de instanciar los objetos y notificar al observador las cantidades
 
@@ -12,6 +13,8 @@ public class Panaderia extends Observable{
 
     ArrayList<Producto> stockSimples = new ArrayList<>();
     ArrayList<Producto> stockCompuestos = new ArrayList<>();
+    
+    Random rand = new Random();
 
     private int nSimples = stockSimples.size();
     private int nCompuestos = stockCompuestos.size();
@@ -54,5 +57,26 @@ public class Panaderia extends Observable{
         for (int i = 0; i < n; i++){
             stockCompuestos.remove(stockCompuestos.size()-1);
         }
+    }
+    
+    @Override
+    public void run(){
+        try{
+            int instante = rand.nextInt(10);
+            int cantidad = rand.nextInt(4);
+            int tipo = rand.nextInt(2);
+            
+            Thread.sleep(instante); 
+
+            if (tipo == 0){
+                this.venderSimple(cantidad);
+            } else { // si tipo == 1
+                this.venderCompuesto(cantidad);
+            }  
+        } catch (InterruptedException ex) {
+                System.out.println("Hilo interrumpido");
+        } 
+        
+
     }
 }

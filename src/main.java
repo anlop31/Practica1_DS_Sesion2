@@ -25,6 +25,15 @@ public class main {
         //Número de productos para el cliente (MEJOR UN GET EN PANADERIA)
         ArrayList<Integer> datos = new ArrayList<>();
 
+        // PROBANDO
+        for (int i = 0; i < 10; i++){ // 10 barras de pan
+            ProductoSimple pan = new ProductoSimple();
+            panaderia.meterSimple(pan);
+        }
+        for(int i = 0; i<15; i++){ // 15 cestas
+            ProductoCompuesto cesta = new ProductoCompuesto();
+            panaderia.meterCompuesto(cesta);
+        }
 
         // Añadimos los observadores a la panaderia
         // UNO DE ESTOS TIENE QUE SER SUSCRITO Y OTRO NO SUSCRITO
@@ -39,6 +48,9 @@ public class main {
         threadSupervisor.start();
         threadAnalista.start();
         
+        if(threadSupervisor.isAlive())
+            System.out.println("thread supervisor vivo");
+        
         while(threadSupervisor.isAlive()){
             // actualizamos los datos
             datos.add(panaderia.getNSimples());
@@ -47,7 +59,7 @@ public class main {
             datos.add(panaderia.getCompuestosVendidos());
             
             supervisor.update(panaderia, datos); // mandamos los datos
-            
+            supervisor.getStock();
             datos.clear(); // Lo limpiamos para luego meter nuevos datos actualizados
         }
     }

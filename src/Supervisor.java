@@ -42,4 +42,8 @@ public class Supervisor implements Observer {
     }
 
 
+    public String getStock(){
+        return (mensajeSimples + mensajeCompuestos);
+    }
+
 }

@@ -38,46 +38,80 @@ public class Panaderia extends Observable implements Runnable{
         return compuestosVendidos;
     }
 
+    public void meterSimple(ProductoSimple producto){
+        stockSimples.add(producto);
+        nSimples++;
+    }
+    
+    public void meterCompuesto(ProductoCompuesto producto){
+        stockCompuestos.add(producto);
+        nCompuestos++;
+    }
+    
     public void venderSimple(int n){
-        nSimples -= n;
-        if (nSimples < 0){
+        System.out.println("VENDERSIMPLES");
+        
+        if (nSimples <= 0){
             nSimples = 0;
         }
-        simplesVendidos += n;
-        for (int i = 0; (i < n) && !stockSimples.isEmpty(); i++){
-            stockSimples.remove(stockSimples.size()-1);
+        else{ // si hay
+            simplesVendidos += n;
+            for (int i = 0; (i < n) && !stockSimples.isEmpty(); i++){
+                stockSimples.remove(stockSimples.size()-1);
+            }   
+            nSimples -= n;
+            System.out.println(n +" simples vendidos");
         }
+
     }
 
     public void venderCompuesto(int n){
-        nCompuestos -= n;
-        if(nCompuestos < 0)
+        System.out.println("VENDERCOMPUESTOS");
+        if(nCompuestos <= 0)
             nCompuestos = 0;
-        compuestosVendidos += n;
-        for (int i = 0; i < n; i++){
-            stockCompuestos.remove(stockCompuestos.size()-1);
+        else{ // si hay
+            compuestosVendidos += n;
+            for (int i = 0; i < n; i++){
+                stockCompuestos.remove(stockCompuestos.size()-1);
+            }
+            nCompuestos -= n;
+            System.out.println(n+" compuestos vendidos");
         }
+
     }
     
     @Override
     public void run(){
+        long inicio = System.currentTimeMillis();
         this.setChanged();
         try{
-            int instante = rand.nextInt(10);
-            int cantidad = rand.nextInt(4);
-            int tipo = rand.nextInt(2);
-            
-            Thread.sleep(instante); 
+            // while true da error?? cómo era xddd
+            //while(true){
+                int instante = rand.nextInt(10);
+                int cantidad = rand.nextInt(4);
+                int tipo = rand.nextInt(2);
 
-            if (tipo == 0){
-                this.venderSimple(cantidad);
-            } else { // si tipo == 1
-                this.venderCompuesto(cantidad);
-            }  
+                // ¿Cómo metemos la espera?
+                Thread.sleep(instante); 
+                while(System.currentTimeMillis() - inicio < 2000) { 
+                    //System.out.println(System.currentTimeMillis() - inicio);
+                }
+                
+                // Print para comprobar que está ejecutándose
+                System.out.println("tipo: "+ tipo + "(0=simple, 1=compuesto)");
+                if (tipo == 0){
+                    this.venderSimple(cantidad);
+                } else { // si tipo == 1
+                    this.venderCompuesto(cantidad);
+                }  
+            //}
         } catch (InterruptedException ex) {
                 System.out.println("Hilo interrumpido");
         } 
         
+        while(System.currentTimeMillis() - inicio < 30000) { 
+            //System.out.println(System.currentTimeMillis() - inicio);
+        }
 
     }
 }

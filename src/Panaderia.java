@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Panaderia extends Observable implements Runnable{
 
     //Se encarga de instanciar los objetos y notificar al observador las cantidades
@@ -22,6 +25,9 @@ public class Panaderia extends Observable implements Runnable{
     private int simplesVendidos = 0;
     private int compuestosVendidos = 0;
 
+    private Timer timer = new Timer();
+
+    //Getters y setters
     public int getNSimples(){
         return nSimples;
     }
@@ -38,6 +44,7 @@ public class Panaderia extends Observable implements Runnable{
         return compuestosVendidos;
     }
 
+    //Esto no lo necesitamos ???
     public void meterSimple(ProductoSimple producto){
         stockSimples.add(producto);
         nSimples++;
@@ -48,11 +55,13 @@ public class Panaderia extends Observable implements Runnable{
         nCompuestos++;
     }
     
+
     public void venderSimple(int n){
         System.out.println("VENDERSIMPLES");
         
         if (nSimples <= 0){
             nSimples = 0;
+            System.out.println("Se han acabado los productos simples");
         }
         else{ // si hay
             simplesVendidos += n;
@@ -60,58 +69,70 @@ public class Panaderia extends Observable implements Runnable{
                 stockSimples.remove(stockSimples.size()-1);
             }   
             nSimples -= n;
-            System.out.println(n +" simples vendidos");
+            System.out.println(n +" simples vendidos y quedan " + nSimples + " == " + stockSimples.size());
         }
 
     }
 
     public void venderCompuesto(int n){
         System.out.println("VENDERCOMPUESTOS");
-        if(nCompuestos <= 0)
+        if(nCompuestos <= 0){
             nCompuestos = 0;
-        else{ // si hay
+            System.out.println("Se han acabado los productos compuestos");
+        }else{ // si hay
             compuestosVendidos += n;
             for (int i = 0; i < n; i++){
                 stockCompuestos.remove(stockCompuestos.size()-1);
             }
             nCompuestos -= n;
-            System.out.println(n+" compuestos vendidos");
+            System.out.println(n +" compuestos vendidos y quedan " + nCompuestos + " == " + stockCompuestos.size());
         }
 
     }
+
+    public void venderProducto(int tipo, int cantidad){
+        // Print para comprobar que está ejecutándose
+        System.out.println("Se venden " + cantidad + " productos de tipo " + tipo);
+        if (tipo == 0){
+            this.venderSimple(cantidad);
+        } else { // si tipo == 1
+            this.venderCompuesto(cantidad);
+        } 
+    }
     
+    public void inicializarProductos(){
+        int nSimples = rand.nextInt(20)+10;
+        int nCompuestos = rand.nextInt(20)+10;
+
+        for (int i = 0; i < nSimples; i++){
+            this.stockSimples.add(new ProductoSimple());
+        }
+        for (int i = 0; i < nCompuestos; i++){
+            this.stockCompuestos.add(new ProductoCompuesto());
+        }
+
+        System.out.println("Se inicializa con " + nSimples + "productos simples y " + nCompuestos + " compuestos.");
+    }
+
     @Override
     public void run(){
-        long inicio = System.currentTimeMillis();
-        this.setChanged();
-        try{
-            // while true da error?? cómo era xddd
-            //while(true){
-                int instante = rand.nextInt(10);
-                int cantidad = rand.nextInt(4);
-                int tipo = rand.nextInt(2);
 
-                // ¿Cómo metemos la espera?
-                Thread.sleep(instante); 
-                while(System.currentTimeMillis() - inicio < 2000) { 
-                    //System.out.println(System.currentTimeMillis() - inicio);
+        inicializarProductos();
+        for (int i = 0; i < 4; i++){
+        //while (!(nSimples == 0 && nCompuestos == 0)){
+            int instante = rand.nextInt(5000)+1000;
+
+            timer.schedule(new TimerTask(){
+                @Override
+                public void run(){
+                    int tipo = rand.nextInt(2);
+                    int cantidad = rand.nextInt(4);
+                    venderProducto(tipo, cantidad);
                 }
-                
-                // Print para comprobar que está ejecutándose
-                System.out.println("tipo: "+ tipo + "(0=simple, 1=compuesto)");
-                if (tipo == 0){
-                    this.venderSimple(cantidad);
-                } else { // si tipo == 1
-                    this.venderCompuesto(cantidad);
-                }  
-            //}
-        } catch (InterruptedException ex) {
-                System.out.println("Hilo interrumpido");
-        } 
+            }, instante);
+       }            
+       System.out.println("Fin de la ejecución");
         
-        while(System.currentTimeMillis() - inicio < 30000) { 
-            //System.out.println(System.currentTimeMillis() - inicio);
-        }
 
     }
 }

@@ -18,6 +18,10 @@ public class Supervisor implements Observer {
 
     public String mensajeSimples;
     public String mensajeCompuestos;
+    int nSimples;
+    int nCompuestos;
+    int simplesVendidos;
+    int compuestosVendidos;
 
     @Override
     public void update(Observable o, Object arg){
@@ -31,10 +35,10 @@ public class Supervisor implements Observer {
         Panaderia panaderia = (Panaderia) o;
         ArrayList<Integer> datos = (ArrayList<Integer>) arg;
 
-        int nSimples = datos.get(0);
-        int nCompuestos = datos.get(1);
-        int simplesVendidos = datos.get(2);
-        int compuestosVendidos = datos.get(3);
+        nSimples = arg.get(0);
+        nCompuestos = datos.get(1);
+        simplesVendidos = datos.get(2);
+        compuestosVendidos = datos.get(3);
 
         mensajeSimples = "El número de productos simples en stock es " + nSimples + " y el número de productos simples que ya se han vendido es " + simplesVendidos;
         mensajeCompuestos = "El número de productos compuestos en stock es " + nCompuestos + " y el número de productos compuestos que ya se han vendido es " + compuestosVendidos;

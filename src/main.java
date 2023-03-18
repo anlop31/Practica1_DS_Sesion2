@@ -43,14 +43,14 @@ public class main {
         ArrayList<Integer> datos = new ArrayList<>();
 
         // PROBANDO
-        for (int i = 0; i < 10; i++){ // 10 barras de pan
-            ProductoSimple pan = new ProductoSimple();
-            panaderia.meterSimple(pan);
-        }
-        for(int i = 0; i<15; i++){ // 15 cestas
-            ProductoCompuesto cesta = new ProductoCompuesto();
-            panaderia.meterCompuesto(cesta);
-        }
+        // for (int i = 0; i < 10; i++){ // 10 barras de pan
+        //     ProductoSimple pan = new ProductoSimple();
+        //     panaderia.meterSimple(pan);
+        // }
+        // for(int i = 0; i<15; i++){ // 15 cestas
+        //     ProductoCompuesto cesta = new ProductoCompuesto();
+        //     panaderia.meterCompuesto(cesta);
+        // }
 
         // Añadimos los observadores a la panaderia
         // UNO DE ESTOS TIENE QUE SER SUSCRITO Y OTRO NO SUSCRITO

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -22,6 +23,22 @@ public class main {
         Thread threadAnalista = new Thread(panaderia);
         
         
+        
+        /**** PRUEBA PANELES ****/
+        
+        Supervisor_panel sup = new Supervisor_panel();
+        
+        //JFrame ventana = new JFrame(); // crea una ventana
+        //ventana.add(panel); // agrega la instancia del panel al contenedor principal
+        sup.setTitle("Panaderia");
+        sup.setSize(300, 200);
+        sup.setLocationRelativeTo(null);
+        sup.setVisible(true); // muestra la ventana
+        
+        
+        /*********************/
+        
+        
         //Número de productos para el cliente (MEJOR UN GET EN PANADERIA)
         ArrayList<Integer> datos = new ArrayList<>();
 
@@ -39,7 +56,7 @@ public class main {
         // UNO DE ESTOS TIENE QUE SER SUSCRITO Y OTRO NO SUSCRITO
         // Supervisor no suscrito al tener el while true?
         /* Supervisor */
-        panaderia.addObserver(supervisor);
+        panaderia.addObserver(sup);
         /* Analista */
         panaderia.addObserver(analista);
         
@@ -58,8 +75,8 @@ public class main {
             datos.add(panaderia.getSimplesVendidos());
             datos.add(panaderia.getCompuestosVendidos());
             
-            supervisor.update(panaderia, datos); // mandamos los datos
-            supervisor.getStock();
+            sup.update(panaderia, datos); // mandamos los datos
+            sup.getStock();
             datos.clear(); // Lo limpiamos para luego meter nuevos datos actualizados
         }
     }

@@ -62,6 +62,8 @@ public class Panaderia extends Observable implements Runnable{
             nSimples -= n;
             System.out.println(n +" simples vendidos");
         }
+        
+        //this.notifyObservers();
 
     }
 
@@ -78,6 +80,7 @@ public class Panaderia extends Observable implements Runnable{
             System.out.println(n+" compuestos vendidos");
         }
 
+        //this.notifyObservers();
     }
     
     @Override

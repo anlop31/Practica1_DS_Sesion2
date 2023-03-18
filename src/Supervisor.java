@@ -35,7 +35,7 @@ public class Supervisor implements Observer {
         Panaderia panaderia = (Panaderia) o;
         ArrayList<Integer> datos = (ArrayList<Integer>) arg;
 
-        nSimples = arg.get(0);
+        nSimples = datos.get(0);
         nCompuestos = datos.get(1);
         simplesVendidos = datos.get(2);
         compuestosVendidos = datos.get(3);

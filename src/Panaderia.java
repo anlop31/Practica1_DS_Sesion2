@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.SwingUtilities;
 
 public class Panaderia extends Observable implements Runnable{
 
@@ -77,7 +78,13 @@ public class Panaderia extends Observable implements Runnable{
             System.out.println(n +" simples vendidos y quedan " + nSimples + " == " + stockSimples.size());
         }
         
-        //this.notifyObservers();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+               setChanged();
+               notifyObservers();
+            }
+        });
 
     }
 
@@ -96,8 +103,14 @@ public class Panaderia extends Observable implements Runnable{
             nCompuestos -= n;
             System.out.println(n +" compuestos vendidos y quedan " + nCompuestos + " == " + stockCompuestos.size());
         }
-
-        //this.notifyObservers();
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+               setChanged();
+               notifyObservers();
+            }
+        });
     }
 
     public void venderProducto(int tipo, int cantidad){
@@ -126,8 +139,9 @@ public class Panaderia extends Observable implements Runnable{
 
     @Override
     public void run(){
-
+        
         while (nProd > 0){
+            //this.setChanged();
             int instante = rand.nextInt(5000)+1000;
             int tipo = rand.nextInt(2);
             int cantidad = rand.nextInt(4)+1;

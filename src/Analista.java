@@ -14,8 +14,12 @@
 public class Analista implements Observer {
 
     //Mostrará una gráfica con las ventas de los últimos 7 días
-    public String mensajeSimples;
-    public String mensajeCompuestos;
+    private int nSimples = 0;
+    private int nCompuestos = 0;
+    private int simplesVendidos = 0;
+    private int compuestosVendidos = 0;
+    public String mensajeSimples = "";
+    public String mensajeCompuestos = "";
 
     @Override
     public void update(Observable o, Object arg){
@@ -26,16 +30,22 @@ public class Analista implements Observer {
             //Logger.getLogger()
         }
 
+        System.out.println("update de analista");
+        
         Panaderia panaderia = (Panaderia) o;
-        ArrayList<Integer> datos = (ArrayList<Integer>) arg;
 
-        int nSimples = datos.get(0);
-        int nCompuestos = datos.get(1);
-        int simplesVendidos = datos.get(2);
-        int compuestosVendidos = datos.get(3);
+        nSimples = panaderia.getNSimples();
+        nCompuestos = panaderia.getNCompuestos();
+        simplesVendidos = panaderia.getSimplesVendidos();
+        compuestosVendidos = panaderia.getCompuestosVendidos();
 
+        
         mensajeSimples = "El número de productos simples en stock es " + nSimples + " y el número de productos simples que ya se han vendido es " + simplesVendidos;
         mensajeCompuestos = "El número de productos compuestos en stock es " + nCompuestos + " y el número de productos compuestos que ya se han vendido es " + compuestosVendidos;
 
+    }
+    
+    public String getStock(){
+        return ("analista: " + mensajeSimples + mensajeCompuestos);
     }
 }

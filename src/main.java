@@ -56,7 +56,7 @@ public class main {
         // UNO DE ESTOS TIENE QUE SER SUSCRITO Y OTRO NO SUSCRITO
         // Supervisor no suscrito al tener el while true?
         /* Supervisor */
-        panaderia.addObserver(sup);
+        //panaderia.addObserver(sup);
         /* Analista */
         panaderia.addObserver(analista);
         
@@ -65,8 +65,12 @@ public class main {
         threadSupervisor.start();
         threadAnalista.start();
         
-        if(threadSupervisor.isAlive())
-            System.out.println("thread supervisor vivo");
+        //if(threadSupervisor.isAlive())
+        //    System.out.println("thread supervisor vivo");
+        
+        // No van las funciones???
+        analista.getStock();
+        
         
         while(threadSupervisor.isAlive()){
             // actualizamos los datos
@@ -76,8 +80,15 @@ public class main {
             datos.add(panaderia.getCompuestosVendidos());
             
             sup.update(panaderia, datos); // mandamos los datos
-            sup.getStock();
+            
+            sup.getStock(); // no va???
+            
+            //System.out.println("mensajeSimples: " + sup.mensajeSimples);
+            System.out.println("--->mensajeSimples(analista): " + analista.mensajeSimples);
+            
             datos.clear(); // Lo limpiamos para luego meter nuevos datos actualizados
         }
+        
+        
     }
 }

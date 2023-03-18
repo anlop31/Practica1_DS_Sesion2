@@ -18,8 +18,8 @@ public class Supervisor_panel extends javax.swing.JFrame implements Observer {
     private int nCompuestos = 0;
     private int simplesVendidos = 0;
     private int compuestosVendidos = 0;
-    public String mensajeSimples ="";
-    public String mensajeCompuestos="";
+    public String mensajeSimples = "NADA";
+    public String mensajeCompuestos = "NADA";
     public String mensaje = mensajeSimples + mensajeCompuestos;
     
     /**
@@ -38,27 +38,34 @@ public class Supervisor_panel extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        titulo_simples = new java.awt.Label();
+        simples = new java.awt.Label();
+        compuestos = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        titulo_simples.setText(mensaje);
+        simples.setText(mensaje);
+
+        compuestos.setText(mensajeCompuestos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(titulo_simples, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(261, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(compuestos, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+                    .addComponent(simples, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(titulo_simples, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(simples, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(compuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,7 +114,7 @@ public class Supervisor_panel extends javax.swing.JFrame implements Observer {
             //Logger.getLogger()
         }
 
-        Panaderia panaderia = (Panaderia) o;
+        // Panaderia panaderia = (Panaderia) o;
         ArrayList<Integer> datos = (ArrayList<Integer>) arg;
 
         nSimples = datos.get(0);
@@ -115,18 +122,25 @@ public class Supervisor_panel extends javax.swing.JFrame implements Observer {
         simplesVendidos = datos.get(2);
         compuestosVendidos = datos.get(3);
 
-        mensajeSimples = "El número de productos simples en stock es " + nSimples + " y el número de productos simples que ya se han vendido es " + simplesVendidos;
-        mensajeCompuestos = "El número de productos compuestos en stock es " + nCompuestos + " y el número de productos compuestos que ya se han vendido es " + compuestosVendidos;
+        this.mensajeSimples = "El número de productos simples en stock es " + nSimples + " y el número de productos simples que ya se han vendido es " + simplesVendidos;
+        this.mensajeCompuestos = "El número de productos compuestos en stock es " + nCompuestos + " y el número de productos compuestos que ya se han vendido es " + compuestosVendidos;
 
+        mensaje = mensajeSimples + mensajeCompuestos;
+        
+        simples.setText(mensajeSimples);
+        compuestos.setText(mensajeCompuestos);
+        simples.repaint();
+        // titulo_simples.revalidate();
     }
 
 
     public String getStock(){
-        return (mensajeSimples + mensajeCompuestos);
+        return ("hola" + mensajeSimples + mensajeCompuestos);
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Label titulo_simples;
+    private java.awt.Label compuestos;
+    private java.awt.Label simples;
     // End of variables declaration//GEN-END:variables
 }

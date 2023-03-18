@@ -2,8 +2,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Panaderia extends Observable implements Runnable{
 
@@ -14,18 +15,22 @@ public class Panaderia extends Observable implements Runnable{
     
     //array de producto
 
+    public Panaderia(){
+        inicializarProductos();
+    }
+
     ArrayList<Producto> stockSimples = new ArrayList<>();
     ArrayList<Producto> stockCompuestos = new ArrayList<>();
     
     Random rand = new Random();
 
-    private int nSimples = stockSimples.size();
-    private int nCompuestos = stockCompuestos.size();
-
+    private int nSimples;
+    private int nCompuestos;
+    private int nProd;
     private int simplesVendidos = 0;
     private int compuestosVendidos = 0;
 
-    private Timer timer = new Timer();
+    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
     //Getters y setters
     public int getNSimples(){
@@ -76,10 +81,12 @@ public class Panaderia extends Observable implements Runnable{
 
     public void venderCompuesto(int n){
         System.out.println("VENDERCOMPUESTOS");
+        //System.out.println("nCOmpuestos: " + nCompuestos);
         if(nCompuestos <= 0){
             nCompuestos = 0;
             System.out.println("Se han acabado los productos compuestos");
-        }else{ // si hay
+        }
+        else{ // si hay
             compuestosVendidos += n;
             for (int i = 0; i < n; i++){
                 stockCompuestos.remove(stockCompuestos.size()-1);
@@ -92,7 +99,7 @@ public class Panaderia extends Observable implements Runnable{
 
     public void venderProducto(int tipo, int cantidad){
         // Print para comprobar que está ejecutándose
-        System.out.println("Se venden " + cantidad + " productos de tipo " + tipo);
+        System.out.println("Se van a vender " + cantidad + " productos de tipo " + tipo);
         if (tipo == 0){
             this.venderSimple(cantidad);
         } else { // si tipo == 1
@@ -101,9 +108,9 @@ public class Panaderia extends Observable implements Runnable{
     }
     
     public void inicializarProductos(){
-        int nSimples = rand.nextInt(20)+10;
-        int nCompuestos = rand.nextInt(20)+10;
-
+        nSimples = rand.nextInt(20)+10;
+        nCompuestos = rand.nextInt(20)+10;
+        nProd = nSimples + nCompuestos;
         for (int i = 0; i < nSimples; i++){
             this.stockSimples.add(new ProductoSimple());
         }
@@ -117,22 +124,22 @@ public class Panaderia extends Observable implements Runnable{
     @Override
     public void run(){
 
-        inicializarProductos();
-        for (int i = 0; i < 4; i++){
-        //while (!(nSimples == 0 && nCompuestos == 0)){
+        while (nProd > 0){
             int instante = rand.nextInt(5000)+1000;
+            int tipo = rand.nextInt(2);
+            int cantidad = rand.nextInt(4)+1;
 
-            timer.schedule(new TimerTask(){
-                @Override
-                public void run(){
-                    int tipo = rand.nextInt(2);
-                    int cantidad = rand.nextInt(4);
-                    venderProducto(tipo, cantidad);
-                }
-            }, instante);
-       }            
-       System.out.println("Fin de la ejecución");
-        
+            executor.schedule(() -> venderProducto(tipo, cantidad), instante, TimeUnit.MILLISECONDS);
+            try {
+                Thread.sleep(instante);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            nProd = nSimples + nCompuestos;
+        }
 
-    }
+        executor.shutdown();
+        System.out.println("Fin de la ejecución");
+
+    } 
 }

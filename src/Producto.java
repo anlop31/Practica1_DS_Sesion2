@@ -8,7 +8,25 @@
  * @author ana
  */
 public abstract class Producto {
-
-    //Clase vacía ?
+    private String nombre;
+    private float precio;
+    private int stock; // ??
+    private int stock_inicial; // añadido
+    
+    public int informarStock(){
+        return stock;
+    }
+    
+    public int informarVendidos(){
+        return stock_inicial - stock; // ??
+    }
+    
+    public void setPrecio(float precio){
+        this.precio = precio;
+    }
+    
+    public void setStock(int stock){
+        this.stock = stock;
+    }
     
 }

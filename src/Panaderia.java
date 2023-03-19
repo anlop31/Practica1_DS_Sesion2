@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import java.util.concurrent.Executors;
@@ -9,30 +10,62 @@ import javax.swing.SwingUtilities;
 
 public class Panaderia extends Observable implements Runnable{
 
-    //Se encarga de instanciar los objetos y notificar al observador las cantidades
-
-
-    //Tiene originalmente el número de productos de cada tipo
-    
-    //array de producto
-
-    public Panaderia(){
-        inicializarProductos();
-    }
-
-    ArrayList<Producto> stockSimples = new ArrayList<>();
-    ArrayList<Producto> stockCompuestos = new ArrayList<>();
+    /*
+    Panaderia : se encarga de instanciar los objetos y notificar
+    al observador las cantidades
+    */
     
     Random rand = new Random();
 
     private int nSimples;
     private int nCompuestos;
     private int nProd;
-    private int simplesVendidos = 0;
-    private int compuestosVendidos = 0;
+    private int simplesVendidos;
+    private int compuestosVendidos;
+    
+    //arrays de productos
+    ArrayList<Producto> stockSimples;
+    ArrayList<Producto> stockCompuestos;
+    
+    //array de suscriptores
+    ArrayList<Observer> observadores;
 
     private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
+    public Panaderia(){
+        stockSimples = new ArrayList<>();
+        stockCompuestos = new ArrayList<>();
+        observadores = new ArrayList<>();
+        simplesVendidos = 0;
+        compuestosVendidos = 0;
+        
+        inicializarProductos();
+
+    }
+    
+    public void inicializarProductos(){
+        nSimples = rand.nextInt(20)+10;
+        nCompuestos = rand.nextInt(20)+10;
+        nProd = nSimples + nCompuestos;
+        for (int i = 0; i < nSimples; i++){
+            this.stockSimples.add(new ProductoSimple());
+        }
+        for (int i = 0; i < nCompuestos; i++){
+            this.stockCompuestos.add(new ProductoCompuesto());
+        }
+
+        System.out.println("Se inicializa con " + nSimples + " productos simples y " + nCompuestos + " compuestos.");
+    }
+    
+    public void adscribir(Observer observador){
+        addObserver(observador);
+        observadores.add(observador);
+    }
+    
+    public void quitar(Observer observador){
+        observadores.remove(observador); 
+    }
+    
     //Getters y setters
     public int getNSimples(){
         return nSimples;
@@ -51,19 +84,20 @@ public class Panaderia extends Observable implements Runnable{
     }
 
     //Esto no lo necesitamos ???
-    public void meterSimple(ProductoSimple producto){
-        stockSimples.add(producto);
-        nSimples++;
-    }
+    //public void meterSimple(ProductoSimple producto){
+    //    stockSimples.add(producto);
+    //    nSimples++;
+    //}
     
-    public void meterCompuesto(ProductoCompuesto producto){
-        stockCompuestos.add(producto);
-        nCompuestos++;
-    }
+    //public void meterCompuesto(ProductoCompuesto producto){
+    //    stockCompuestos.add(producto);
+    //    nCompuestos++;
+    //}
+   
     
 
     public void venderSimple(int n){
-        System.out.println("VENDERSIMPLES");
+        System.out.println("**VENDERSIMPLES");
         
         if (nSimples <= 0){
             nSimples = 0;
@@ -89,7 +123,7 @@ public class Panaderia extends Observable implements Runnable{
     }
 
     public void venderCompuesto(int n){
-        System.out.println("VENDERCOMPUESTOS");
+        System.out.println("**VENDERCOMPUESTOS");
         //System.out.println("nCOmpuestos: " + nCompuestos);
         if(nCompuestos <= 0){
             nCompuestos = 0;
@@ -122,20 +156,7 @@ public class Panaderia extends Observable implements Runnable{
             this.venderCompuesto(cantidad);
         } 
     }
-    
-    public void inicializarProductos(){
-        nSimples = rand.nextInt(20)+10;
-        nCompuestos = rand.nextInt(20)+10;
-        nProd = nSimples + nCompuestos;
-        for (int i = 0; i < nSimples; i++){
-            this.stockSimples.add(new ProductoSimple());
-        }
-        for (int i = 0; i < nCompuestos; i++){
-            this.stockCompuestos.add(new ProductoCompuesto());
-        }
-
-        System.out.println("Se inicializa con " + nSimples + "productos simples y " + nCompuestos + " compuestos.");
-    }
+   
 
     @Override
     public void run(){

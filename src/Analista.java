@@ -20,26 +20,24 @@ import java.util.Observable;
  */
 public class Analista extends javax.swing.JFrame implements Observer {
 
-    //Mostrará una gráfica con las ventas de los últimos 7 días
-    private ArrayList<Integer> simples;
-    private ArrayList<Integer> compuestos;
+    //Mostrará las ventas de los últimos 7 días
     
     public ArrayList<Integer> ventasDia;
     public ArrayList<Integer> ventasTotales;
     
-    private int contador = 0;
-    private int dia_semana = 0;
-    private int suma = 0;
-    // private final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    // Para controlar los dias
+    private int contador;
+    private int dia_semana;
+    private int suma;
     
     private double precioCestas;
     private double precioPan;
-    
     
     private int nSimples;
     private int nCompuestos;
     private int simplesVendidos;
     private int compuestosVendidos;
+    
     public String mensajeSimples;
     public String mensajeCompuestos;
     
@@ -56,26 +54,21 @@ public class Analista extends javax.swing.JFrame implements Observer {
             System.out.println("size: " + ventasTotales.size());
         }
         
-        initComponents();
-        simples = new ArrayList<>();
-        compuestos = new ArrayList<>();
         
-        
-        /*
-        JFreeChart chart = ChartFactory.createBarChart("Título de la gráfica", "Etiqueta del eje X", "Etiqueta del eje Y", dataset, PlotOrientation.VERTICAL, true, true, false);
-        ChartPanel chartPanel = new ChartPanel(chart);
-        JFrame frame = new JFrame("Mi ventana");
-        frame.getContentPane().add(chartPanel);
-        frame.pack();
-        frame.setVisible(true);
-        */
-              
+        contador = 0;
+        dia_semana = 0;
+        suma = 0;
+
         nSimples = 0;
         nCompuestos = 0;
         simplesVendidos = 0;
         compuestosVendidos = 0;
         mensajeSimples = "";
         mensajeCompuestos = "";
+        
+        initComponents();
+              
+        
 
     }
 
@@ -193,20 +186,21 @@ public class Analista extends javax.swing.JFrame implements Observer {
         try {
             Thread.sleep(500);
         } catch (InterruptedException ex){
-            //Logger.getLogger()
+
         }
         
         Panaderia panaderia = (Panaderia) o;
-        suma = 0; // parametro de clase
+        suma = 0; // sera las ventas de un dia
         int vendidos = (nSimples+nCompuestos) - ( panaderia.getNSimples()+panaderia.getNCompuestos() );
-        System.out.println("----------VENDIDOS: "+ vendidos);
+        System.out.println("--------VENDIDOS: "+ vendidos); // para ver si recibe bien la cantidad de vendidos
         
-        if(contador == 0){
+        if(contador == 0){ // inicializar la panaderia, para saber cuantos productos hay inicialmente
             contador++;
         }
-        else if(contador == 4){
+        else if(contador == 4){ // cambio de dia
             contador = 1;
 
+            // Suma de todas las ventas en el mismo dia
             for(int i=0; i<3; i++){
                 suma += ventasDia.get(i);
                 System.out.println("suma: "+suma+" ventasDia.get("+i+"):" + ventasDia.get(i));
@@ -215,11 +209,8 @@ public class Analista extends javax.swing.JFrame implements Observer {
             ventasTotales.set(dia_semana, suma);
             
             System.out.println("--->Dia semana: " + dia_semana + " con ventas: " + suma + ". Contador: " + contador);
-
-            if(dia_semana == 0){
-                lunes.setText(Integer.toString(ventasTotales.get(dia_semana)));
-            }
             
+            // actualizar el texto del panel cuando se sepa las ventas del dia
             switch(dia_semana){
                 case 0:
                     lunes.setText(Integer.toString(ventasTotales.get(dia_semana)));
@@ -244,23 +235,19 @@ public class Analista extends javax.swing.JFrame implements Observer {
                 break;
             }
             
-            dia_semana++;
+            dia_semana++; // cambiamos de dia
             
             ventasDia.clear();
-            
-            ventasDia.add(vendidos);
+            ventasDia.add(vendidos); // añade esa venta a la venta del proximo dias
             
         } 
-        else{ // sigue vendiendo en el dia
+        else{ // sigue vendiendo en el mismo dia
             System.out.println("--->Dia semana: " + dia_semana + ". Contador : " + contador);
             ventasDia.add(vendidos);
             contador++;
         }
-        
-        //System.out.println("update de analista");
-        
-        
-
+         
+       
         nSimples = panaderia.getNSimples();
         nCompuestos = panaderia.getNCompuestos();
         simplesVendidos = panaderia.getSimplesVendidos();

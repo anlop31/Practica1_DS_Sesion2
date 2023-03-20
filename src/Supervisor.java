@@ -16,10 +16,12 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
 
     private double precioCestas;
     private double precioPan;
+    
     private int nSimples;
     private int nCompuestos;
     private int simplesVendidos;
     private int compuestosVendidos;
+    
     public String mensajeSimples;
     public String mensajeCompuestos;
     public String mensaje; // mensajeSimples y mensajeCompuestos concatenado

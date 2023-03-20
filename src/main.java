@@ -66,7 +66,7 @@ public class main {
             supervisor.update(panaderia, datos); // mandamos los datos
             
             //System.out.println("mensajeSimples: " + sup.mensajeSimples);
-            System.out.println("--->mensajeSimples(analista): " + analista.mensajeSimples);
+            //System.out.println("--->mensajeSimples(analista): " + analista.mensajeSimples);
             
             datos.clear(); // Lo limpiamos para luego meter nuevos datos actualizados
         }

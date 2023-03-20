@@ -23,11 +23,19 @@ public class Analista extends javax.swing.JFrame implements Observer {
     //Mostrará una gráfica con las ventas de los últimos 7 días
     private ArrayList<Integer> simples;
     private ArrayList<Integer> compuestos;
+    
+    public ArrayList<Integer> ventasDia;
+    public ArrayList<Integer> ventasTotales;
+    
     private int contador = 0;
+    private int dia_semana = 0;
+    private int suma = 0;
     // private final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
     
     private double precioCestas;
     private double precioPan;
+    
+    
     private int nSimples;
     private int nCompuestos;
     private int simplesVendidos;
@@ -35,13 +43,24 @@ public class Analista extends javax.swing.JFrame implements Observer {
     public String mensajeSimples;
     public String mensajeCompuestos;
     
+    
     /**
      * Creates new form Analista_panel
      */
     public Analista() {
+        ventasDia = new ArrayList<>();
+        ventasTotales = new ArrayList<>();
+        
+        for(int i=0; i<7; i++){
+            ventasTotales.add(0);
+            System.out.println("size: " + ventasTotales.size());
+        }
+        
         initComponents();
         simples = new ArrayList<>();
         compuestos = new ArrayList<>();
+        
+        
         /*
         JFreeChart chart = ChartFactory.createBarChart("Título de la gráfica", "Etiqueta del eje X", "Etiqueta del eje Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -69,17 +88,64 @@ public class Analista extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lunes = new java.awt.Label();
+        martes = new java.awt.Label();
+        miercoles = new java.awt.Label();
+        jueves = new java.awt.Label();
+        viernes = new java.awt.Label();
+        sabado = new java.awt.Label();
+        domingo = new java.awt.Label();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lunes.setText(Integer.toString(ventasTotales.get(0)));
+
+        martes.setText(Integer.toString(ventasTotales.get(1)));
+
+        miercoles.setText(Integer.toString(ventasTotales.get(2)));
+
+        jueves.setText(Integer.toString(ventasTotales.get(3)));
+
+        viernes.setText(Integer.toString(ventasTotales.get(4)));
+
+        sabado.setText(Integer.toString(ventasTotales.get(5)));
+
+        domingo.setText(Integer.toString(ventasTotales.get(6)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(martes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(miercoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(domingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(domingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(miercoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(martes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,10 +195,71 @@ public class Analista extends javax.swing.JFrame implements Observer {
         } catch (InterruptedException ex){
             //Logger.getLogger()
         }
-
-        System.out.println("update de analista");
         
         Panaderia panaderia = (Panaderia) o;
+        suma = 0; // parametro de clase
+        int vendidos = (nSimples+nCompuestos) - ( panaderia.getNSimples()+panaderia.getNCompuestos() );
+        System.out.println("----------VENDIDOS: "+ vendidos);
+        
+        if(contador == 0){
+            contador++;
+        }
+        else if(contador == 4){
+            contador = 1;
+
+            for(int i=0; i<3; i++){
+                suma += ventasDia.get(i);
+                System.out.println("suma: "+suma+" ventasDia.get("+i+"):" + ventasDia.get(i));
+            }
+            
+            ventasTotales.set(dia_semana, suma);
+            
+            System.out.println("--->Dia semana: " + dia_semana + " con ventas: " + suma + ". Contador: " + contador);
+
+            if(dia_semana == 0){
+                lunes.setText(Integer.toString(ventasTotales.get(dia_semana)));
+            }
+            
+            switch(dia_semana){
+                case 0:
+                    lunes.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                break;
+                case 1:
+                    martes.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                break;
+                case 2:
+                    miercoles.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                break;
+                case 3:
+                    jueves.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                break;
+                case 4:
+                    viernes.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                break;
+                case 5:
+                    sabado.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                break;
+                case 6:
+                    domingo.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                break;
+            }
+            
+            dia_semana++;
+            
+            ventasDia.clear();
+            
+            ventasDia.add(vendidos);
+            
+        } 
+        else{ // sigue vendiendo en el dia
+            System.out.println("--->Dia semana: " + dia_semana + ". Contador : " + contador);
+            ventasDia.add(vendidos);
+            contador++;
+        }
+        
+        //System.out.println("update de analista");
+        
+        
 
         nSimples = panaderia.getNSimples();
         nCompuestos = panaderia.getNCompuestos();
@@ -150,5 +277,12 @@ public class Analista extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Label domingo;
+    private java.awt.Label jueves;
+    private java.awt.Label lunes;
+    private java.awt.Label martes;
+    private java.awt.Label miercoles;
+    private java.awt.Label sabado;
+    private java.awt.Label viernes;
     // End of variables declaration//GEN-END:variables
 }

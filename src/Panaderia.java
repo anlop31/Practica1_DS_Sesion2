@@ -47,6 +47,16 @@ public class Panaderia extends Observable implements Runnable{
         nSimples = rand.nextInt(20)+10;
         nCompuestos = rand.nextInt(20)+10;
         nProd = nSimples + nCompuestos;
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+               setChanged();
+               notifyObservers();
+            }
+        });
+        
+        
         for (int i = 0; i < nSimples; i++){
             this.stockSimples.add(new ProductoSimple());
         }

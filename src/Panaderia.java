@@ -44,6 +44,10 @@ public class Panaderia extends Observable implements Runnable{
     }
     
     public void inicializarProductos(){
+
+        //Genera las cantidades de productos de cada tipo
+        //y añade dicha cantidad de productos al arraylist correspondiente
+
         nSimples = rand.nextInt(20)+10;
         nCompuestos = rand.nextInt(20)+10;
         nProd = nSimples + nCompuestos;
@@ -55,7 +59,6 @@ public class Panaderia extends Observable implements Runnable{
                notifyObservers();
             }
         });
-        
         
         for (int i = 0; i < nSimples; i++){
             this.stockSimples.add(new ProductoSimple());
@@ -76,7 +79,7 @@ public class Panaderia extends Observable implements Runnable{
         observadores.remove(observador); 
     }
     
-    //Getters y setters
+    //Getters  
     public int getNSimples(){
         return nSimples;
     }
@@ -92,19 +95,7 @@ public class Panaderia extends Observable implements Runnable{
     public int getCompuestosVendidos(){
         return compuestosVendidos;
     }
-
-    //Esto no lo necesitamos ???
-    //public void meterSimple(ProductoSimple producto){
-    //    stockSimples.add(producto);
-    //    nSimples++;
-    //}
-    
-    //public void meterCompuesto(ProductoCompuesto producto){
-    //    stockCompuestos.add(producto);
-    //    nCompuestos++;
-    //}
-   
-    
+       
 
     public void venderSimple(int n){
         System.out.println("**VENDERSIMPLES");
@@ -134,7 +125,6 @@ public class Panaderia extends Observable implements Runnable{
 
     public void venderCompuesto(int n){
         System.out.println("**VENDERCOMPUESTOS");
-        //System.out.println("nCOmpuestos: " + nCompuestos);
         if(nCompuestos <= 0){
             nCompuestos = 0;
             System.out.println("Se han acabado los productos compuestos");
@@ -157,6 +147,8 @@ public class Panaderia extends Observable implements Runnable{
         });
     }
 
+    //Vende n productos del tipo correspondiente
+
     public void venderProducto(int tipo, int cantidad){
         // Print para comprobar que está ejecutándose
         System.out.println("Se van a vender " + cantidad + " productos de tipo " + tipo);
@@ -170,7 +162,9 @@ public class Panaderia extends Observable implements Runnable{
 
     @Override
     public void run(){
-        
+
+        //Cada cierto tiempo (instante) se vende una serie de productos 
+        //(cantidad) de un tipo u otro (tipo)
         while (nProd > 0){
             //this.setChanged();
             int instante = rand.nextInt(5000)+1000;

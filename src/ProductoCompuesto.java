@@ -32,12 +32,5 @@ public class ProductoCompuesto extends Producto {
     public Producto obtenerProducto(int identificador){
         return productos.get(identificador);
     }
-    
-    /*
-     * 10 barras 
-     * 1 cesta de 10 barras
-     * 1 cesta de 2 barras y 1 cesta de 1 barras
-     * 
-     */
 
 }

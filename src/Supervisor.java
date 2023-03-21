@@ -24,7 +24,6 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
     
     public String mensajeSimples;
     public String mensajeCompuestos;
-    public String mensaje; // mensajeSimples y mensajeCompuestos concatenado
     
     /**
      * Creates new form Supervisor_panel
@@ -37,7 +36,6 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
         compuestosVendidos = 0;
         mensajeSimples = "NADA";
         mensajeCompuestos = "NADA";
-        mensaje = mensajeSimples + mensajeCompuestos;
     }
 
     /**
@@ -54,7 +52,7 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        simples.setText(mensaje);
+        simples.setText(mensajeSimples);
 
         compuestos.setText(mensajeCompuestos);
 
@@ -136,8 +134,6 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
 
         this.mensajeSimples = "El número de productos simples en stock es " + nSimples + " y ya se han vendido " + simplesVendidos;
         this.mensajeCompuestos = "El número de productos compuestos en stock es " + nCompuestos + " y ya se han vendido " + compuestosVendidos;
-
-        mensaje = mensajeSimples + mensajeCompuestos;
         
         simples.setText(mensajeSimples);
         compuestos.setText(mensajeCompuestos);

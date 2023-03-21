@@ -98,13 +98,11 @@ public class Panaderia extends Observable implements Runnable{
        
 
     public void venderSimple(int n){
-        System.out.println("**VENDERSIMPLES");
-        
-        if (nSimples <= 0){
+        if (nSimples <= 0){ // si no quedan simples
             nSimples = 0;
             System.out.println("Se han acabado los productos simples");
         }
-        else{ // si hay
+        else{ // si quedan simples
             simplesVendidos += n;
             for (int i = 0; (i < n) && !stockSimples.isEmpty(); i++){
                 stockSimples.remove(stockSimples.size()-1);
@@ -124,12 +122,11 @@ public class Panaderia extends Observable implements Runnable{
     }
 
     public void venderCompuesto(int n){
-        System.out.println("**VENDERCOMPUESTOS");
-        if(nCompuestos <= 0){
+        if(nCompuestos <= 0){ // si no quedan compuestos
             nCompuestos = 0;
             System.out.println("Se han acabado los productos compuestos");
         }
-        else{ // si hay
+        else{ // si quedan compuestos
             compuestosVendidos += n;
             for (int i = 0; i < n; i++){
                 stockCompuestos.remove(stockCompuestos.size()-1);

@@ -41,7 +41,6 @@ public class Analista extends javax.swing.JFrame implements Observer {
         
         for(int i=0; i<7; i++){
             ventasTotales.add(0);
-            System.out.println("size: " + ventasTotales.size());
         }
         
         
@@ -78,6 +77,14 @@ public class Analista extends javax.swing.JFrame implements Observer {
         viernes = new java.awt.Label();
         sabado = new java.awt.Label();
         domingo = new java.awt.Label();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
+        label3 = new java.awt.Label();
+        label4 = new java.awt.Label();
+        label5 = new java.awt.Label();
+        label6 = new java.awt.Label();
+        label7 = new java.awt.Label();
+        label8 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,31 +102,77 @@ public class Analista extends javax.swing.JFrame implements Observer {
 
         domingo.setText(Integer.toString(ventasTotales.get(6)));
 
+        label1.setText("L");
+
+        label2.setText("M");
+
+        label3.setText("X");
+
+        label4.setText("J");
+
+        label5.setText("V");
+
+        label6.setText("S");
+
+        label7.setText("D");
+
+        label8.setText("Ventas de la semana");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(martes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(miercoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(viernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(domingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(martes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(miercoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(domingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
+                .addContainerGap()
+                .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(domingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,57 +237,59 @@ public class Analista extends javax.swing.JFrame implements Observer {
         int vendidos = (nSimples+nCompuestos) - ( panaderia.getNSimples()+panaderia.getNCompuestos() );
         System.out.println("--------VENDIDOS: "+ vendidos); // para ver si recibe bien la cantidad de vendidos
         
-        if(contador == 0){ // inicializar la panaderia, para saber cuantos productos hay inicialmente
-            contador++;
-        }
-        else if(contador == 4){ // cambio de dia
-            contador = 1;
+        if(dia_semana <7){
+            if(contador == 0){ // inicializar la panaderia, para saber cuantos productos hay inicialmente
+                contador++;
+            }
+            else if(contador == 4){ // cambio de dia
+                contador = 1;
 
-            // Suma de todas las ventas en el mismo dia
-            for(int i=0; i<3; i++){
-                suma += ventasDia.get(i);
-                System.out.println("suma: "+suma+" ventasDia.get("+i+"):" + ventasDia.get(i));
+                // Suma de todas las ventas en el mismo dia
+                for(int i=0; i<3; i++){
+                    suma += ventasDia.get(i);
+                    System.out.println("suma: "+suma+" ventasDia.get("+i+"):" + ventasDia.get(i));
+                }
+
+                ventasTotales.set(dia_semana, suma);
+
+                System.out.println("--->Dia semana: " + dia_semana + " con ventas: " + suma + ". Contador: " + contador);
+
+                // actualizar el texto del panel cuando se sepa las ventas del dia
+                switch(dia_semana){
+                    case 0:
+                        lunes.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                    break;
+                    case 1:
+                        martes.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                    break;
+                    case 2:
+                        miercoles.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                    break;
+                    case 3:
+                        jueves.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                    break;
+                    case 4:
+                        viernes.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                    break;
+                    case 5:
+                        sabado.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                    break;
+                    case 6:
+                        domingo.setText(Integer.toString(ventasTotales.get(dia_semana)));
+                    break;
+                }
+
+                dia_semana++; // cambiamos de dia
+
+                ventasDia.clear();
+                ventasDia.add(vendidos); // añade esa venta a la venta del proximo dias
+
+            } 
+            else{ // sigue vendiendo en el mismo dia
+                System.out.println("--->Dia semana: " + dia_semana + ". Contador : " + contador);
+                ventasDia.add(vendidos);
+                contador++;
             }
-            
-            ventasTotales.set(dia_semana, suma);
-            
-            System.out.println("--->Dia semana: " + dia_semana + " con ventas: " + suma + ". Contador: " + contador);
-            
-            // actualizar el texto del panel cuando se sepa las ventas del dia
-            switch(dia_semana){
-                case 0:
-                    lunes.setText(Integer.toString(ventasTotales.get(dia_semana)));
-                break;
-                case 1:
-                    martes.setText(Integer.toString(ventasTotales.get(dia_semana)));
-                break;
-                case 2:
-                    miercoles.setText(Integer.toString(ventasTotales.get(dia_semana)));
-                break;
-                case 3:
-                    jueves.setText(Integer.toString(ventasTotales.get(dia_semana)));
-                break;
-                case 4:
-                    viernes.setText(Integer.toString(ventasTotales.get(dia_semana)));
-                break;
-                case 5:
-                    sabado.setText(Integer.toString(ventasTotales.get(dia_semana)));
-                break;
-                case 6:
-                    domingo.setText(Integer.toString(ventasTotales.get(dia_semana)));
-                break;
-            }
-            
-            dia_semana++; // cambiamos de dia
-            
-            ventasDia.clear();
-            ventasDia.add(vendidos); // añade esa venta a la venta del proximo dias
-            
-        } 
-        else{ // sigue vendiendo en el mismo dia
-            System.out.println("--->Dia semana: " + dia_semana + ". Contador : " + contador);
-            ventasDia.add(vendidos);
-            contador++;
         }
          
        
@@ -256,6 +311,14 @@ public class Analista extends javax.swing.JFrame implements Observer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label domingo;
     private java.awt.Label jueves;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
+    private java.awt.Label label3;
+    private java.awt.Label label4;
+    private java.awt.Label label5;
+    private java.awt.Label label6;
+    private java.awt.Label label7;
+    private java.awt.Label label8;
     private java.awt.Label lunes;
     private java.awt.Label martes;
     private java.awt.Label miercoles;

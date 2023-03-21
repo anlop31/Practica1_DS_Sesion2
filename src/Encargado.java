@@ -12,7 +12,7 @@ import java.util.Observer;
  *
  * @author ana
  */
-public class Supervisor extends javax.swing.JFrame implements Observer {
+public class Encargado extends javax.swing.JFrame implements Observer {
 
     private double precioCestas;
     private double precioPan;
@@ -28,7 +28,7 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
     /**
      * Creates new form Supervisor_panel
      */
-    public Supervisor() {
+    public Encargado() {
         initComponents();
         nSimples = 0;
         nCompuestos = 0;
@@ -49,6 +49,7 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
 
         simples = new java.awt.Label();
         compuestos = new java.awt.Label();
+        label1 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,24 +57,32 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
 
         compuestos.setText(mensajeCompuestos);
 
+        label1.setText("Stock de la panaderia");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(compuestos, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(compuestos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addComponent(simples, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(simples, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(compuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(compuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -97,21 +106,23 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Supervisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Encargado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Supervisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Encargado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Supervisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Encargado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Supervisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Encargado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Supervisor().setVisible(true);
+                new Encargado().setVisible(true);
             }
         });
     }
@@ -132,8 +143,8 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
         simplesVendidos = datos.get(2);
         compuestosVendidos = datos.get(3);
 
-        this.mensajeSimples = "El número de productos simples en stock es " + nSimples + " y ya se han vendido " + simplesVendidos;
-        this.mensajeCompuestos = "El número de productos compuestos en stock es " + nCompuestos + " y ya se han vendido " + compuestosVendidos;
+        this.mensajeSimples = "El número de panes en stock es " + nSimples + " y ya se han vendido " + simplesVendidos;
+        this.mensajeCompuestos = "El número de cestas en stock es " + nCompuestos + " y ya se han vendido " + compuestosVendidos;
         
         simples.setText(mensajeSimples);
         compuestos.setText(mensajeCompuestos);
@@ -149,6 +160,7 @@ public class Supervisor extends javax.swing.JFrame implements Observer {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label compuestos;
+    private java.awt.Label label1;
     private java.awt.Label simples;
     // End of variables declaration//GEN-END:variables
 }

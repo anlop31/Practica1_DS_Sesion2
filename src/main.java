@@ -18,11 +18,11 @@ public class main {
         Panaderia panaderia = new Panaderia();
         
         // Observers
-        Supervisor supervisor = new Supervisor();
+        Encargado encargado = new Encargado();
         Analista analista = new Analista();
         
         // Threads
-        Thread threadSupervisor = new Thread(panaderia);
+        Thread threadEncargado = new Thread(panaderia);
         Thread threadAnalista = new Thread(panaderia);
         
         //Número de productos para el cliente (MEJOR UN GET EN PANADERIA)
@@ -33,10 +33,10 @@ public class main {
         
         //JFrame ventana = new JFrame(); // crea una ventana
         //ventana.add(panel); // agrega la instancia del panel al contenedor principal
-        supervisor.setTitle("Panaderia (supervisor)");
-        supervisor.setSize(300, 200);
-        supervisor.setLocationRelativeTo(null);
-        supervisor.setVisible(true); // muestra la ventana
+        encargado.setTitle("Panaderia (encargado)");
+        encargado.setSize(600, 400); // 300, 200
+        encargado.setLocationRelativeTo(null);
+        encargado.setVisible(true); // muestra la ventana
         
 
         
@@ -53,17 +53,17 @@ public class main {
         
         
         // Iniciamos los threads
-        threadSupervisor.start();
+        threadEncargado.start();
         threadAnalista.start();        
         
-        while(threadSupervisor.isAlive()){
+        while(threadEncargado.isAlive()){
             // actualizamos los datos
             datos.add(panaderia.getNSimples());
             datos.add(panaderia.getNCompuestos());
             datos.add(panaderia.getSimplesVendidos());
             datos.add(panaderia.getCompuestosVendidos());
             
-            supervisor.update(panaderia, datos); // mandamos los datos
+            encargado.update(panaderia, datos); // mandamos los datos
             
             //System.out.println("mensajeSimples: " + sup.mensajeSimples);
             //System.out.println("--->mensajeSimples(analista): " + analista.mensajeSimples);

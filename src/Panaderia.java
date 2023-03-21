@@ -100,15 +100,20 @@ public class Panaderia extends Observable implements Runnable{
     public void venderSimple(int n){
         if (nSimples <= 0){ // si no quedan simples
             nSimples = 0;
-            System.out.println("Se han acabado los productos simples");
+            System.out.println("Se han acabado los panes");
         }
         else{ // si quedan simples
-            simplesVendidos += n;
-            for (int i = 0; (i < n) && !stockSimples.isEmpty(); i++){
-                stockSimples.remove(stockSimples.size()-1);
-            }   
-            nSimples -= n;
-            System.out.println(n +" simples vendidos y quedan " + nSimples + " == " + stockSimples.size());
+            if(n <= nSimples){
+                simplesVendidos += n;
+                for (int i = 0; (i < n) && !stockSimples.isEmpty(); i++){
+                    stockSimples.remove(stockSimples.size()-1);
+                }   
+                nSimples -= n;
+                System.out.println(n +" panes vendidos y quedan " + nSimples + " == " + stockSimples.size());
+            }
+            else{
+                System.out.println("No hay suficientes panes");
+            }
         }
         
         SwingUtilities.invokeLater(new Runnable() {
@@ -124,15 +129,20 @@ public class Panaderia extends Observable implements Runnable{
     public void venderCompuesto(int n){
         if(nCompuestos <= 0){ // si no quedan compuestos
             nCompuestos = 0;
-            System.out.println("Se han acabado los productos compuestos");
+            System.out.println("Se han acabado las cestas");
         }
         else{ // si quedan compuestos
-            compuestosVendidos += n;
-            for (int i = 0; i < n; i++){
-                stockCompuestos.remove(stockCompuestos.size()-1);
+            if(n <= nCompuestos){
+                compuestosVendidos += n;
+                for (int i = 0; i < n; i++){
+                    stockCompuestos.remove(stockCompuestos.size()-1);
+                }
+                nCompuestos -= n;
+                System.out.println(n +" cestas vendidas y quedan " + nCompuestos + " == " + stockCompuestos.size());
             }
-            nCompuestos -= n;
-            System.out.println(n +" compuestos vendidos y quedan " + nCompuestos + " == " + stockCompuestos.size());
+            else{
+                System.out.println("No hay suficientes cestas");
+            }
         }
         
         SwingUtilities.invokeLater(new Runnable() {
@@ -178,7 +188,6 @@ public class Panaderia extends Observable implements Runnable{
         }
 
         executor.shutdown();
-        System.out.println("Fin de la ejecución");
 
     } 
 }
